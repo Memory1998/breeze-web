@@ -8,6 +8,11 @@ import locale from "element-ui/lib/locale";
 locale.use(lang);
 import "./utils/element-ui";
 
+import axios from "axios";
+
+// 全局注册
+Vue.prototype.$http = axios;
+
 Vue.config.productionTip = false;
 
 new Vue({
