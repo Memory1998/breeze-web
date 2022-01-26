@@ -1,17 +1,24 @@
 const baseURL = process.env.VUE_APP_BASE_API;
-
+debugger
 module.exports = {
   devServer: {
+    port: 8000,
+    open: true,
     https: false,
-    proxy: {
-      "/api": {
-        // 用 /api 代替服务端真实地址
-        target: baseURL, // 服务端真实地址
-        changeOrigin: true, // 运行跨域
+    overlay: {
+      warnings: false,
+      errors: true
+    },
+    proxy: { //配置跨域
+      '/api': {
+        target: baseURL, //这里后台的地址模拟的;应该填写你们真实的后台接口
+        changOrigin: true,
         pathRewrite: {
-          "^/api": "", // 请求的时候，地址重写
-        },
+          '^/api': ''
+        }
       },
     },
-  },
+    // before: require('./mock/mock-server.js')
+  }
 };
+
