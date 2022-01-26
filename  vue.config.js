@@ -1,20 +1,17 @@
-let proxyObj = {};
-
 const baseURL = process.env.VUE_APP_BASE_API;
 
-proxyObj["/"] = {
-    ws:false, // 关闭 webSocket
-    target: baseURL, // 后端的地址
-    changeOrigin: true,
-    pathRewrite: {
-        '^/':''
-    }
-}
-
 module.exports = {
-    devServer:{
-        host: "localhost",
-        port: 8080,
-        proxy: proxyObj
-    }
-}
+  devServer: {
+    https: false,
+    proxy: {
+      "/api": {
+        // 用 /api 代替服务端真实地址
+        target: baseURL, // 服务端真实地址
+        changeOrigin: true, // 运行跨域
+        pathRewrite: {
+          "^/api": "", // 请求的时候，地址重写
+        },
+      },
+    },
+  },
+};
