@@ -2,7 +2,7 @@ import axios from "axios";
 import { Message } from "element-ui";
 
 axios.defaults.timeout = 30000;
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = "";
 
 /**
  * 请求拦截器
@@ -48,9 +48,7 @@ axios.interceptors.response.use(
     return success.data;
   },
   (error) => {
-    debugger;
     if (error.response.status == 504 || error.response.status == 404) {
-      debugger;
       Message.error({ message: "服务器被吃了~~~" });
     } else if (error.response.status == 403) {
       Message.error({ message: "权限不足" });

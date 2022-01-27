@@ -58,10 +58,7 @@ export default {
     onSubmit() {
       this.$refs.userLogin.validate((valid) => {
         if (valid) {
-          console.log(process.env.VUE_APP_BASE_API);
-          token(this.userLogin).then(() => {
-            debugger;
-          });
+          token(this.userLogin).then(() => {});
         } else {
           this.$message({
             showClose: true,
