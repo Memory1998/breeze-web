@@ -1,13 +1,17 @@
 import axios from "axios";
 import { Message } from "element-ui";
 
-axios.defaults.timeout = 30000;
-axios.defaults.baseURL = '/api'
+//创建的实例返回一个对象,实例对象
+const request = axios.create({
+  //请求路径，基础接口路径 请求9999时经过/dev-api相当于请求//http://localhost:8888
+  baseURL: process.env.VUE_APP_BASE_API,
+  timeout: 5000, //请求超时时间
+});
 
 /**
  * 请求拦截器
  */
-axios.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     /**
      * 如果存在token，请求携带token
@@ -25,8 +29,9 @@ axios.interceptors.request.use(
 /**
  * 响应拦截器
  */
-axios.interceptors.response.use(
+request.interceptors.response.use(
   (success) => {
+    debugger;
     /**
      * 判断业务逻辑错误
      */
@@ -48,7 +53,8 @@ axios.interceptors.response.use(
     return success.data;
   },
   (error) => {
-    if (error.response.status == 504 || error.response.status == 404) {
+      debugger
+      if (error.response.status == 504 || error.response.status == 404) {
       Message.error({ message: "服务器被吃了~~~" });
     } else if (error.response.status == 403) {
       Message.error({ message: "权限不足" });
@@ -65,4 +71,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default request;
