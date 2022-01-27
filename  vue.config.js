@@ -7,8 +7,9 @@ proxyObj["/"] = {
   // 目标服务器,代理访问到 http://localhost:9999
   target: baseURL,
   changOrigin: true, //开启代理
+  logLevel: 'debug',
   pathRewrite: {
-    "^/": "",
+    "^/": ""
   },
 };
 

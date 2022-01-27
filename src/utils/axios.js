@@ -2,6 +2,7 @@ import axios from "axios";
 import { Message } from "element-ui";
 
 axios.defaults.timeout = 30000;
+axios.defaults.baseURL = '';
 
 /**
  * 请求拦截器
