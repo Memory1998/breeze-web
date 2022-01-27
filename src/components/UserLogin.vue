@@ -58,7 +58,10 @@ export default {
     onSubmit() {
       this.$refs.userLogin.validate((valid) => {
         if (valid) {
-          token(this.userLogin).then(() => {});
+          token(this.userLogin).then((response) => {
+            console.log(response);
+            debugger;
+          });
         } else {
           this.$message({
             showClose: true,

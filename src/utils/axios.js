@@ -31,11 +31,10 @@ request.interceptors.request.use(
  */
 request.interceptors.response.use(
   (success) => {
-    debugger;
     /**
      * 判断业务逻辑错误
      */
-    if (success.status && status == 200) {
+    if (success.status && success.status == 200) {
       if (
         success.data.code == 500 ||
         success.data.code == 401 ||
@@ -53,8 +52,7 @@ request.interceptors.response.use(
     return success.data;
   },
   (error) => {
-      debugger
-      if (error.response.status == 504 || error.response.status == 404) {
+    if (error.response.status == 504 || error.response.status == 404) {
       Message.error({ message: "服务器被吃了~~~" });
     } else if (error.response.status == 403) {
       Message.error({ message: "权限不足" });
