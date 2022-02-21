@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { token } from "@/api/admin/auth";
+import { token } from "@/api/login";
 
 export default {
   name: "userLogin",
@@ -59,8 +59,8 @@ export default {
       this.$refs.userLogin.validate((valid) => {
         if (valid) {
           token(this.userLogin).then((response) => {
-            console.log(response);
-            debugger;
+            localStorage.setItem("access_token", response.access_token);
+            this.$router.push("home");
           });
         } else {
           this.$message({
@@ -68,7 +68,7 @@ export default {
             message: "登录失败",
             type: "error",
           });
-
+          localStorage.removeItem("access_token");
           return false;
         }
       });
