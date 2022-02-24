@@ -1,3 +1,8 @@
+const { defineConfig } = require("@vue/cli-service");
+module.exports = defineConfig({
+  transpileDependencies: true,
+});
+
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
@@ -21,9 +26,7 @@ module.exports = {
   },
   devServer: {
     port: 8080, //端口号，被占用自动提升加1
-    host: "localhost", //主机名，127.0.01 真机 0.0.0.0
     https: false, //协议
-    open: true, //启动浏览器自动打开
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         //获取生产环境设置的变量，属性名是变量，需要通过[]包裹,后期便于维护
