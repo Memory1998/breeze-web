@@ -19,24 +19,31 @@
       </div>
     </el-header>
 
-    <el-container style="height: 93vh">
-      <el-aside width="15vw">
-        <div class="collapase" @click="collapase">||||</div>
-        <el-menu router>
+    <el-container style="height: 93vh; text-align: left">
+      <el-aside :width="isCollapse ? '3.5vw' : '15vw'">
+        <div class="collapse" @click="collapse">||||</div>
+        <el-menu
+          :collapse-transition="false"
+          router
+          :collapse="isCollapse"
+          @open="handleOpen"
+          @close="handleClose"
+        >
           <el-submenu
             :index="item.id + ''"
             v-for="item in menus"
             :key="item.id"
           >
             <template slot="title">
-              <span>{{ item.authName }}</span>
+              <i class="el-icon-menu"></i>
+              <span slot="title">{{ item.menuName }}</span>
             </template>
             <el-menu-item
               :index="'/' + subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
             >
-              <span slot="title">{{ subItem.authName }}</span>
+              <span slot="title">{{ subItem.menuName }}</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -56,15 +63,15 @@ export default {
   data: function () {
     return {
       isCollapse: false, // 决定左侧导航栏是否展开
-      handleOpen: false,
-      handleClose: false,
       menus: [
         {
-          authName: "系统设置",
+          id: 1,
+          menuName: "系统设置",
           path: "/",
           children: [
             {
-              authName: "用户管理",
+              id: 1.1,
+              menuName: "用户管理",
               path: "user",
             },
           ],
@@ -77,6 +84,15 @@ export default {
     logout() {
       window.sessionStorage.clear();
       this.$router.push("/login");
+    },
+    collapse() {
+      this.isCollapse = !this.isCollapse;
+    },
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     },
   },
 };
@@ -119,10 +135,13 @@ export default {
 }
 
 .el-aside {
-  background-color: #d3dce6;
   color: #333;
-  text-align: center;
-  line-height: 200px;
+  background: #9b9b9b;
+  transition: width 0.15s;
+  -webkit-transition: width 0.15s;
+  -moz-transition: width 0.15s;
+  -webkit-transition: width 0.15s;
+  -o-transition: width 0.15s;
 }
 
 .el-main {
@@ -132,10 +151,10 @@ export default {
   line-height: 160px;
 }
 
-.collapase {
+.collapse {
+  text-align: center;
   color: white;
   letter-spacing: 2px;
-  text-align: center;
   cursor: pointer;
   line-height: 24px;
 }
