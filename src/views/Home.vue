@@ -1,20 +1,27 @@
 <template>
-  <el-container style="margin: 0; padding: 0">
-    <el-header style="text-align: right; font-size: 12px">
-      <el-dropdown>
-        <i class="el-icon-setting" style="margin-right: 15px"></i>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>登出</el-dropdown-item>
-          <el-dropdown-item>设置</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <span>admin</span>
+  <el-container style="margin: 0; padding: 0; height: 100%">
+    <el-header>
+      <div>
+        <div>
+          <img src="../assets/logo.png" alt="" />
+          <span>后台管理系统</span>
+        </div>
+        <div class="logout">
+          <el-dropdown>
+            <i class="el-icon-setting"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click="logout">登出</el-dropdown-item>
+              <el-dropdown-item>设置</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <span>admin</span>
+        </div>
+      </div>
     </el-header>
 
-    <el-container style="height: 90vh">
+    <el-container style="height: 93vh">
       <el-aside width="15vw">
         <div class="collapase" @click="collapase">||||</div>
-
         <el-menu router>
           <el-submenu
             :index="item.id + ''"
@@ -35,7 +42,9 @@
         </el-menu>
       </el-aside>
 
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -51,12 +60,12 @@ export default {
       handleClose: false,
       menus: [
         {
-          authName: "一级路由",
-          path: "router",
+          authName: "系统设置",
+          path: "/",
           children: [
             {
-              authName: "二级路由",
-              path: "router",
+              authName: "用户管理",
+              path: "user",
             },
           ],
         },
@@ -64,17 +73,49 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    logout() {
+      window.sessionStorage.clear();
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 
-<style scoped>
-.el-header,
-.el-footer {
+<style lang="less" scoped>
+.el-header {
   background-color: #b3c0d1;
   color: #333;
-  text-align: center;
-  line-height: 60px;
+
+  > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+
+    > div {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 100%;
+      justify-content: flex-start;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+
+      span {
+        margin-left: 15px;
+      }
+    }
+
+    > .logout {
+      width: 100%;
+      flex-shrink: 25;
+    }
+  }
 }
 
 .el-aside {
