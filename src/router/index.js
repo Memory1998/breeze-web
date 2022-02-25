@@ -21,6 +21,16 @@ const routes = [
         name: "User",
         component: () => import("../views/user/User.vue"),
       },
+      {
+        path: "/platform",
+        name: "Platform",
+        component: () => import("../views/platform/Platform.vue"),
+      },
+      {
+        path: "/menu",
+        name: "Menu",
+        component: () => import("../views/menu/Menu.vue"),
+      },
     ],
   },
 ];
@@ -34,7 +44,6 @@ router.beforeEach((to, from, next) => {
   if (access_token) {
     next();
   } else {
-    debugger;
     if (to.path == "/") {
       next();
     } else {

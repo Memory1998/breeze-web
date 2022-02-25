@@ -250,16 +250,13 @@ export default {
 
     // 请求背景图片和验证图片
     getPictrue() {
-      debugger;
       const data = {
         captchaType: this.captchaType,
         clientUid: localStorage.getItem("point"),
         ts: Date.now(), // 现在的时间戳
       };
       reqGet(data).then((res) => {
-        debugger;
         if (res.repCode === "0000") {
-          debugger;
           this.pointBackImgBase = res.repData.originalImageBase64;
           this.backToken = res.repData.token;
           this.secretKey = res.repData.secretKey;

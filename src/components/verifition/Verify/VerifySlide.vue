@@ -336,7 +336,6 @@ export default {
           token: this.backToken,
         };
         reqCheck(data).then((res) => {
-          debugger;
           if (res.data.repCode === "0000") {
             this.moveBlockBackgroundColor = "#5cb85c";
             this.leftBarBorderColor = "#5cb85c";
@@ -422,7 +421,6 @@ export default {
         ts: Date.now(), // 现在的时间戳
       };
       reqGet(data).then((res) => {
-        debugger;
         if (res.data.repCode === "0000") {
           this.backImgBase = res.data.repData.originalImageBase64;
           this.blockBackImgBase = res.data.repData.jigsawImageBase64;

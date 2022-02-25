@@ -1,22 +1,7 @@
 <template>
   <el-container style="margin: 0; padding: 0; height: 100%">
     <el-header>
-      <div>
-        <div>
-          <img src="../assets/logo.png" alt="" />
-          <span>后台管理系统</span>
-        </div>
-        <div class="logout">
-          <el-dropdown>
-            <i class="el-icon-setting"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click="logout">登出</el-dropdown-item>
-              <el-dropdown-item>设置</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <span>admin</span>
-        </div>
-      </div>
+      <Header />
     </el-header>
 
     <el-container style="height: 93vh; text-align: left">
@@ -24,32 +9,35 @@
         <div class="collapse" @click="collapse">||||</div>
         <el-menu
           :collapse-transition="false"
+          :default-active="this.$store.state.editableTabsValue"
           router
           :collapse="isCollapse"
           @open="handleOpen"
           @close="handleClose"
         >
           <el-submenu
-            :index="item.id + ''"
+            :index="item.menuName"
             v-for="item in menus"
             :key="item.id"
           >
             <template slot="title">
               <i class="el-icon-menu"></i>
-              <span slot="title">{{ item.menuName }}</span>
+              <span slot="title">{{ item.title }}</span>
             </template>
             <el-menu-item
-              :index="'/' + subItem.path"
+              :index="subItem.menuName"
               v-for="subItem in item.children"
               :key="subItem.id"
+              @click="clickMenu(subItem)"
             >
-              <span slot="title">{{ subItem.menuName }}</span>
+              <span slot="title">{{ subItem.title }}</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
 
       <el-main>
+        <Tabs />
         <router-view />
       </el-main>
     </el-container>
@@ -57,22 +45,47 @@
 </template>
 
 <script>
+import Tabs from "@/components/home/Tabs.vue";
+import Header from "@/components/home/Header";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
-  data: function () {
+  components: {
+    Tabs,
+    Header,
+  },
+  data() {
     return {
       isCollapse: false, // 决定左侧导航栏是否展开
       menus: [
         {
           id: 1,
-          menuName: "系统设置",
+          title: "系统设置",
+          menuName: "System",
+          components: "/",
           path: "/",
           children: [
             {
               id: 1.1,
-              menuName: "用户管理",
-              path: "user",
+              title: "用户管理",
+              menuName: "User",
+              components: "/user",
+              path: "/user",
+            },
+            {
+              id: 1.2,
+              title: "平台管理",
+              menuName: "Platform",
+              components: "/platform",
+              path: "/platform",
+            },
+            {
+              id: 1.3,
+              title: "菜单管理",
+              menuName: "Menu",
+              components: "/menu",
+              path: "/menu",
             },
           ],
         },
@@ -94,6 +107,11 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    clickMenu(menu) {
+      debugger;
+      console.log(menu);
+      this.$store.commit("addTab", menu);
+    },
   },
 };
 </script>
@@ -102,36 +120,6 @@ export default {
 .el-header {
   background-color: #b3c0d1;
   color: #333;
-
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
-
-    > div {
-      display: flex;
-      align-items: center;
-      flex-wrap: nowrap;
-      width: 100%;
-      justify-content: flex-start;
-
-      img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-      }
-
-      span {
-        margin-left: 15px;
-      }
-    }
-
-    > .logout {
-      width: 100%;
-      flex-shrink: 25;
-    }
-  }
 }
 
 .el-aside {
@@ -145,10 +133,9 @@ export default {
 }
 
 .el-main {
-  background-color: #e9eef3;
-  color: #333;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  line-height: 160px;
 }
 
 .collapse {

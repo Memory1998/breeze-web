@@ -201,7 +201,6 @@ export default {
     },
     show() {
       if (this.mode == "pop") {
-        debugger;
         this.clickShow = true;
       }
     },
