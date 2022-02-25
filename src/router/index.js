@@ -30,7 +30,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  debugger;
   let access_token = localStorage.getItem("access_token");
   if (access_token) {
     next();

@@ -29,14 +29,26 @@
         </el-button>
       </el-form-item>
     </el-form>
+
+    <Verify
+      @success="success"
+      :mode="'pop'"
+      :captchaType="'blockPuzzle'"
+      :imgSize="{ width: '330px', height: '155px' }"
+      ref="verify"
+    ></Verify>
   </div>
 </template>
 
 <script>
+import Verify from "@/components/verifition/Verify";
 import { token } from "@/api/login";
 
 export default {
   name: "userLogin",
+  components: {
+    Verify,
+  },
   data() {
     return {
       loginBtn: "登录",
@@ -55,13 +67,17 @@ export default {
     };
   },
   methods: {
+    success(params) {
+      console.log(params);
+      token(this.userLogin).then((response) => {
+        localStorage.setItem("access_token", response.access_token);
+        this.$router.push("home");
+      });
+    },
     onSubmit() {
       this.$refs.userLogin.validate((valid) => {
         if (valid) {
-          token(this.userLogin).then((response) => {
-            localStorage.setItem("access_token", response.access_token);
-            this.$router.push("home");
-          });
+          this.$refs.verify.show();
         } else {
           this.$message({
             showClose: true,

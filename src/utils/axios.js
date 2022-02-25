@@ -40,12 +40,10 @@ request.interceptors.response.use(
         success.data.code == 401 ||
         success.data.code == 403
       ) {
-        debugger;
         Message.error({ message: success.data.message });
         return;
       }
       if (success.data.message) {
-        debugger;
         Message.success({ message: success.data.message });
       }
     }
