@@ -16,8 +16,9 @@ request.interceptors.request.use(
     /**
      * 如果存在token，请求携带token
      */
-    if (window.sessionStorage.getItem("token")) {
-      config.headers["Authorization"] = window.sessionStorage.getItem("token");
+    if (localStorage.getItem("access_token")) {
+      config.headers["Authorization"] =
+        "Bearer " + localStorage.getItem("access_token");
     }
     return config;
   },

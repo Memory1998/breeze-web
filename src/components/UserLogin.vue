@@ -71,7 +71,7 @@ export default {
       console.log(params);
       token(this.userLogin).then((response) => {
         localStorage.setItem("access_token", response.access_token);
-        this.$router.push("home");
+        this.$router.push("Index");
       });
     },
     onSubmit() {

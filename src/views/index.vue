@@ -64,7 +64,7 @@ export default {
           title: "系统设置",
           menuName: "System",
           components: "/",
-          path: "/",
+          path: "/index",
           children: [
             {
               id: 1.1,
