@@ -37,10 +37,11 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  linkActiveClass: "selected",
   routes,
 });
 
-export const initMenu = (routers) => {
+export const initMenu = () => {
   menuTree().then((response) => {
     if (!response.data) {
       return;
@@ -59,17 +60,18 @@ export const initMenu = (routers) => {
     //   });
     //   console.log(router);
     // }
-    console.log(routers);
     response.data.forEach((menu) => {
       debugger;
-      routers.addRoute({
-        path: "/" + menu.url,
+      let route = {
+        path: menu.path,
         meta: { name: menu.name, isAsync: true, icon: menu.icon },
         name: menu.name,
-        component: () => import(`../views/${menu.path}`),
-      });
+        component: () => import(`../views/${menu.url}`),
+      };
+      console.log(route);
+      routes.push(route);
     });
-    console.log(router.getRoutes());
+    router.addRoutes(routes);
   });
 };
 
@@ -116,6 +118,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
-initMenu(router);
+
+initMenu();
 
 export default router;
