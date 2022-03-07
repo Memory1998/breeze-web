@@ -152,11 +152,11 @@ const menuToRoute = (menu) => {
     }
   }
   route.component = loadView(menu.url)
-
   return route
 }
 
 export const loadView = (view) => {
-  return (resolve) => require([`../views/${view}.vue`], resolve)
+  console.log(`@/views${view}.vue`)
+  return (resolve) => require([`@/views${view}.vue`], resolve)
 }
 export default router

@@ -1,3 +1,10 @@
+const path = require('path')
+
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
+const name = '管理平台'
+
 // const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
 // const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
@@ -33,6 +40,16 @@ module.exports = {
           // "^/dev-api":""，
           ['^' + process.env.VUE_APP_BASE_API]: ''
         }
+      }
+    }
+  },
+  configureWebpack: {
+    // provide the app's title in webpack's name field, so that
+    // it can be accessed in index.html to inject the correct title.
+    name: name,
+    resolve: {
+      alias: {
+        '@': resolve('src')
       }
     }
   }
