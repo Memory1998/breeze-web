@@ -41,68 +41,68 @@
  * Verify 验证码组件
  * @description 分发验证码使用
  * */
-import VerifySlide from "./Verify/VerifySlide";
-import VerifyPoints from "./Verify/VerifyPoints";
+import VerifySlide from './Verify/VerifySlide'
+import VerifyPoints from './Verify/VerifyPoints'
 
 export default {
-  name: "Vue2Verify",
+  name: 'Vue2Verify',
   components: {
     VerifySlide,
-    VerifyPoints,
+    VerifyPoints
   },
   props: {
     // 双语化
     locale: {
       require: false,
       type: String,
-      default() {
+      default () {
         // 默认语言不输入为浏览器语言
-        let language;
+        let language
         if (navigator.language) {
-          language = navigator.language;
+          language = navigator.language
         } else {
-          language = navigator.browserLanguage;
+          language = navigator.browserLanguage
         }
-        return language;
-      },
+        return language
+      }
     },
     captchaType: {
       type: String,
-      required: true,
+      required: true
     },
     figure: {
-      type: Number,
+      type: Number
     },
     arith: {
-      type: Number,
+      type: Number
     },
     mode: {
       type: String,
-      default: "pop",
+      default: 'pop'
     },
     vSpace: {
-      type: Number,
+      type: Number
     },
     explain: {
-      type: String,
+      type: String
     },
     imgSize: {
       type: Object,
-      default() {
+      default () {
         return {
-          width: "310px",
-          height: "155px",
-        };
-      },
+          width: '310px',
+          height: '155px'
+        }
+      }
     },
     blockSize: {
-      type: Object,
+      type: Object
     },
     barSize: {
-      type: Object,
-    },
+      type: Object
+    }
   },
-  data() {
+  data () {
     return {
       // showBox:true,
       clickShow: false,
@@ -111,62 +111,62 @@ export default {
       // 所用组件类型
       componentType: undefined,
       // 默认图片
-      defaultImg: require("@/assets/logo.png"),
-    };
+      defaultImg: require('@/assets/logo.png')
+    }
   },
   computed: {
-    instance() {
-      return this.$refs.instance || {};
+    instance () {
+      return this.$refs.instance || {}
     },
-    showBox() {
-      if (this.mode === "pop") {
-        return this.clickShow;
+    showBox () {
+      if (this.mode === 'pop') {
+        return this.clickShow
       } else {
-        return true;
+        return true
       }
-    },
+    }
   },
   watch: {
     captchaType: {
       immediate: true,
-      handler(captchaType) {
+      handler (captchaType) {
         switch (captchaType.toString()) {
-          case "blockPuzzle":
-            this.verifyType = "2";
-            this.componentType = "VerifySlide";
-            break;
-          case "clickWord":
-            this.verifyType = "";
-            this.componentType = "VerifyPoints";
-            break;
+          case 'blockPuzzle':
+            this.verifyType = '2'
+            this.componentType = 'VerifySlide'
+            break
+          case 'clickWord':
+            this.verifyType = ''
+            this.componentType = 'VerifyPoints'
+            break
         }
-      },
-    },
+      }
+    }
   },
-  mounted() {
-    this.uuid();
+  mounted () {
+    this.uuid()
   },
   methods: {
     // 生成 uuid
-    uuid() {
-      let s = [];
-      let hexDigits = "0123456789abcdef";
+    uuid () {
+      const s = []
+      const hexDigits = '0123456789abcdef'
       for (let i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
       }
-      s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-      s[8] = s[13] = s[18] = s[23] = "-";
+      s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
+      s[8] = s[13] = s[18] = s[23] = '-'
 
-      let slider = "slider" + "-" + s.join("");
-      let point = "point" + "-" + s.join("");
+      const slider = 'slider' + '-' + s.join('')
+      const point = 'point' + '-' + s.join('')
       // 判断下是否存在 slider
-      console.log(localStorage.getItem("slider"));
-      if (!localStorage.getItem("slider")) {
-        localStorage.setItem("slider", slider);
+      console.log(localStorage.getItem('slider'))
+      if (!localStorage.getItem('slider')) {
+        localStorage.setItem('slider', slider)
       }
-      if (!localStorage.getItem("point")) {
-        localStorage.setItem("point", point);
+      if (!localStorage.getItem('point')) {
+        localStorage.setItem('point', point)
       }
     },
     /**
@@ -175,37 +175,37 @@ export default {
      * @param {String} text-被转换的目标
      * @return {String} i18n的结果
      * */
-    i18n(text) {
+    i18n (text) {
       if (this.$t) {
-        return this.$t(text);
+        return this.$t(text)
       } else {
         // 兼容不存在的语言
         const i18n =
           this.$options.i18n.messages[this.locale] ||
-          this.$options.i18n.messages["en-US"];
-        return i18n[text];
+          this.$options.i18n.messages['en-US']
+        return i18n[text]
       }
     },
     /**
      * refresh
      * @description 刷新
      * */
-    refresh() {
+    refresh () {
       if (this.instance.refresh) {
-        this.instance.refresh();
+        this.instance.refresh()
       }
     },
-    closeBox() {
-      this.clickShow = false;
-      this.refresh();
+    closeBox () {
+      this.clickShow = false
+      this.refresh()
     },
-    show() {
-      if (this.mode == "pop") {
-        this.clickShow = true;
+    show () {
+      if (this.mode === 'pop') {
+        this.clickShow = true
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style>
 .verifybox {

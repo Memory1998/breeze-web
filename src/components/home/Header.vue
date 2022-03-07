@@ -19,18 +19,17 @@
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Header",
-  data() {
-    return {};
+  name: 'Header',
+  data () {
+    return {}
   },
   methods: {
-    logout() {
-      window.sessionStorage.clear();
-      this.$router.push("/login");
-    },
-  },
-};
+    logout () {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

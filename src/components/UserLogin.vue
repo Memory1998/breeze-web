@@ -41,56 +41,56 @@
 </template>
 
 <script>
-import Verify from "@/components/verifition/Verify";
-import { token } from "@/api/login";
+import Verify from '@/components/verifition/Verify'
+import { token } from '@/api/login'
 
 export default {
-  name: "userLogin",
+  name: 'userLogin',
   components: {
-    Verify,
+    Verify
   },
-  data() {
+  data () {
     return {
-      loginBtn: "登录",
+      loginBtn: '登录',
       userLogin: {
-        username: "admin",
-        password: "123456",
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
-          { required: true, message: "请输入登录账户", trigger: "blur" },
+          { required: true, message: '请输入登录账户', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: "请输入登录密码", trigger: "blur" },
-        ],
-      },
-    };
+          { required: true, message: '请输入登录密码', trigger: 'blur' }
+        ]
+      }
+    }
   },
   methods: {
-    success(params) {
-      console.log(params);
+    success (params) {
+      console.log(params)
       token(this.userLogin).then((response) => {
-        localStorage.setItem("access_token", response.access_token);
-        this.$router.push("Index");
-      });
+        localStorage.setItem('access_token', response.access_token)
+        this.$router.push('home')
+      })
     },
-    onSubmit() {
+    onSubmit () {
       this.$refs.userLogin.validate((valid) => {
         if (valid) {
-          this.$refs.verify.show();
+          this.$refs.verify.show()
         } else {
           this.$message({
             showClose: true,
-            message: "登录失败",
-            type: "error",
-          });
-          localStorage.removeItem("access_token");
-          return false;
+            message: '登录失败',
+            type: 'error'
+          })
+          localStorage.removeItem('access_token')
+          return false
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,18 +1,16 @@
 <template>
-  <div class="loign">
+  <div class="login">
     <UserLogin />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import UserLogin from "@/components/UserLogin.vue";
+import UserLogin from '@/components/UserLogin.vue'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Login",
+  name: 'Login',
   components: {
-    UserLogin,
-  },
-};
+    UserLogin
+  }
+}
 </script>

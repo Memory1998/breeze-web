@@ -1,37 +1,37 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    editableTabsValue: "Home",
+    editableTabsValue: 'Home',
     editableTabs: [
       {
-        title: "首页",
-        name: "Home",
-      },
-    ],
+        title: '首页',
+        name: 'Home'
+      }
+    ]
   },
   getters: {},
   mutations: {
-    addTab(state, menu) {
-      let result =
+    addTab (state, menu) {
+      const result =
         state.editableTabs.filter((item) => {
-          return item.name === menu.menuName;
-        }).length > 0;
+          return item.name === menu.menuName
+        }).length > 0
 
       if (result) {
-        return;
+        return
       }
 
       state.editableTabs.push({
         title: menu.title,
-        name: menu.menuName,
-      });
-      state.editableTabsValue = menu.menuName;
-    },
+        name: menu.menuName
+      })
+      state.editableTabsValue = menu.menuName
+    }
   },
   actions: {},
-  modules: {},
-});
+  modules: {}
+})

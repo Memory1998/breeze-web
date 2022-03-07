@@ -1,4 +1,4 @@
-import request from "@/utils/axios";
+import request from '@/utils/axios'
 
 /**
  * 初始化菜单
@@ -6,10 +6,10 @@ import request from "@/utils/axios";
  * @param data
  * @returns {AxiosPromise}
  */
-export function menuTree() {
+export function menuTree () {
   return request({
-    url: "/admin/sys/menu/menuTree",
-    method: "get",
-    params: { platformCode: "managementCenter" },
-  });
+    url: '/admin/sys/menu/menuTree',
+    method: 'get',
+    params: { platformCode: 'managementCenter' }
+  })
 }

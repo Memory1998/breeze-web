@@ -45,71 +45,70 @@
 </template>
 
 <script>
-import Tabs from "@/components/home/Tabs.vue";
-import Header from "@/components/home/Header";
+import Tabs from '@/components/home/Tabs'
+import Header from '@/components/home/Header'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Home",
+  name: 'Home',
   components: {
     Tabs,
-    Header,
+    Header
   },
-  data() {
+  data () {
     return {
       isCollapse: false, // 决定左侧导航栏是否展开
       menus: [
         {
           id: 1,
-          title: "系统设置",
-          menuName: "System",
-          path: "/system",
+          title: '系统设置',
+          menuName: 'System',
+          path: '/system',
           children: [
             {
               id: 1.1,
-              title: "用户管理",
-              menuName: "User",
-              path: "/user",
+              title: '用户管理',
+              menuName: 'User',
+              path: '/user'
             },
             {
               id: 1.2,
-              title: "平台管理",
-              menuName: "Platform",
-              path: "/platform",
+              title: '平台管理',
+              menuName: 'Platform',
+              path: '/platform'
             },
             {
               id: 1.3,
-              title: "菜单管理",
-              menuName: "Menu",
-              path: "/menu",
-            },
-          ],
-        },
-      ],
-    };
+              title: '菜单管理',
+              menuName: 'Menu',
+              path: '/menu'
+            }
+          ]
+        }
+      ]
+    }
   },
   computed: {},
   methods: {
-    logout() {
-      window.sessionStorage.clear();
-      this.$router.push("/login");
+    logout () {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
     },
-    collapse() {
-      this.isCollapse = !this.isCollapse;
+    collapse () {
+      this.isCollapse = !this.isCollapse
     },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
     },
-    clickMenu(menu) {
-      debugger;
-      console.log(menu);
-      this.$store.commit("addTab", menu);
-    },
-  },
-};
+    clickMenu (menu) {
+      debugger
+      console.log(menu)
+      this.$store.commit('addTab', menu)
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
