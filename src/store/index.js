@@ -11,10 +11,14 @@ export default new Vuex.Store({
         title: '首页',
         name: 'Home'
       }
-    ]
+    ],
+    menuList: []
   },
   getters: {},
   mutations: {
+    setMenuList (state, menus) {
+      state.menuList = menus
+    },
     addTab (state, menu) {
       const result =
         state.editableTabs.filter((item) => {

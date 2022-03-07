@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 import { menuTree } from '@/api/menu'
 
 Vue.use(VueRouter)
@@ -13,23 +14,28 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('@/views/Home'),
+    component: () => import('@/views/Home.vue'),
     children: [
       {
-        path: '/user',
-        name: 'User',
-        component: () => import('../views/admin/user')
-      },
-      {
-        path: '/platform',
-        name: 'Platform',
-        component: () => import('../views/admin/platform')
-      },
-      {
-        path: '/menu',
-        name: 'Menu',
-        component: () => import('../views/admin/menu')
+        path: '/welcome',
+        name: 'Welcome',
+        component: () => import('@/views/Welcome.vue')
       }
+      // {
+      //   path: '/user',
+      //   name: 'User',
+      //   component: () => import('../views/admin/user')
+      // },
+      // {
+      //   path: '/platform',
+      //   name: 'Platform',
+      //   component: () => import('../views/admin/platform')
+      // },
+      // {
+      //   path: '/menu',
+      //   name: 'Menu',
+      //   component: () => import('../views/admin/menu')
+      // }
     ]
   }
 ]
@@ -41,6 +47,33 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const accessToken = localStorage.getItem('access_token')
   if (accessToken) {
+    menuTree().then((response) => {
+      if (!response.data) {
+        return
+      }
+      console.log(response.data)
+      debugger
+      // 拿到menuList
+      store.commit('setMenuList', response.data)
+      // console.log(store.state.menus.menuList)
+      // 动态绑定路由
+      const newRoutes = router.options.routes
+
+      response.data.forEach(menu => {
+        if (menu.children) {
+          menu.children.forEach(e => {
+            // 转成路由
+            const route = menuToRoute(e)
+            debugger
+            // 吧路由添加到路由管理中
+            if (route) {
+              newRoutes[1].children.push(route)
+            }
+          })
+        }
+      })
+      router.addRoutes(newRoutes)
+    })
     next()
   } else {
     if (to.path === '/') {
@@ -79,16 +112,51 @@ export const filterMenu = (userRouter, allRouter) => {
 }
 
 export const initMenu = () => {
+  debugger
   menuTree().then((response) => {
     if (!response.data) {
       return
     }
     debugger
-    const routeTemp = filterMenu(response.data, routes)
-    console.log(routeTemp)
+    // 动态绑定路由
+    const newRoutes = router.options.routes
+
+    response.data.forEach(menu => {
+      if (menu.children) {
+        menu.children.forEach(e => {
+          // 转成路由
+          const route = menuToRoute(e)
+          debugger
+          // 吧路由添加到路由管理中
+          if (route) {
+            newRoutes[0].children.push(route)
+          }
+        })
+      }
+    })
   })
 }
 
-initMenu()
+// 导航转成路由
+const menuToRoute = (menu) => {
+  if (!menu.url) {
+    return null
+  }
 
+  const route = {
+    name: menu.name,
+    path: menu.path,
+    meta: {
+      icon: menu.icon,
+      title: menu.title
+    }
+  }
+  route.component = loadView(menu.url)
+
+  return route
+}
+
+export const loadView = (view) => {
+  return (resolve) => require([`../views/${view}.vue`], resolve)
+}
 export default router
