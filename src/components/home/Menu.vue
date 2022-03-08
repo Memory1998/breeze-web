@@ -8,12 +8,12 @@
         </transition>
       </div>
     </el-header>
-    <div class="collapse" @click="collapse">||||</div>
     <el-menu
       router
-      background-color="#409EFF"
-      text-color="#303133"
-      active-text-color="#FFFFFF"
+      style="border-right: 1px solid #003366"
+      background-color="#003366"
+      text-color="#CCCCCC"
+      active-text-color="#999966"
       :collapse-transition="false"
       :default-active="this.$store.state.editableTabsValue"
       :collapse="isCollapse"
@@ -45,7 +45,6 @@ export default {
   name: 'Menu',
   data () {
     return {
-      isCollapse: false, // 决定左侧导航栏是否展开
       menus: [
         {
           id: 1,
@@ -77,10 +76,17 @@ export default {
 
     }
   },
+  computed: {
+    isCollapse: {
+      get () {
+        return this.$store.state.isCollapse
+      },
+      set (isCollapse) {
+        this.$store.state.isCollapse = isCollapse
+      }
+    }
+  },
   methods: {
-    collapse () {
-      this.isCollapse = !this.isCollapse
-    },
     handleOpen (key, keyPath) {
       console.log(key, keyPath)
     },
@@ -101,11 +107,11 @@ export default {
 }
 
 .el-aside {
-  background: #409EFF;
-  transition: width 0.15s;
-  -webkit-transition: width 0.15s;
-  -moz-transition: width 0.15s;
-  -o-transition: width 0.15s;
+  background: #003366;
+  transition: width 0.01s;
+  -webkit-transition: width 0.01s;
+  -moz-transition: width 0.01s;
+  -o-transition: width 0.01s;
 }
 
 .logo {
@@ -126,18 +132,11 @@ export default {
     width: 5vw;
     margin-left: 15px;
     font-size: 0.9rem;
-    transition: width 0.15s;
-    -webkit-transition: width 0.15s;
-    -moz-transition: width 0.15s;
-    -o-transition: width 0.15s;
+    transition: width 0.01s;
+    -webkit-transition: width 0.01s;
+    -moz-transition: width 0.01s;
+    -o-transition: width 0.01s;
   }
 }
 
-.collapse {
-  text-align: center;
-  color: white;
-  letter-spacing: 2px;
-  cursor: pointer;
-  line-height: 24px;
-}
 </style>

@@ -12,12 +12,16 @@ export default new Vuex.Store({
         name: 'Home'
       }
     ],
-    menuList: []
+    menuList: [],
+    isCollapse: false
   },
   getters: {},
   mutations: {
     setMenuList (state, menus) {
       state.menuList = menus
+    },
+    setCollapse (state, isCollapse) {
+      state.isCollapse = isCollapse
     },
     addTab (state, menu) {
       const result =
@@ -25,6 +29,7 @@ export default new Vuex.Store({
           return item.name === menu.menuName
         }).length > 0
 
+      state.editableTabsValue = menu.menuName
       if (result) {
         return
       }
@@ -33,7 +38,6 @@ export default new Vuex.Store({
         title: menu.title,
         name: menu.menuName
       })
-      state.editableTabsValue = menu.menuName
     }
   },
   actions: {},

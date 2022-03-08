@@ -23,7 +23,6 @@ request.interceptors.request.use(
       config.headers.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
     }
-    debugger
     loadingInstance = Loading.service({
       lock: true,
       text: 'Loading',

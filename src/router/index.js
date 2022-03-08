@@ -49,21 +49,14 @@ export const loadRoute = () => {
     if (!response.data) {
       return
     }
-    console.log(response.data)
-    debugger
-    // 拿到menuList
     store.commit('setMenuList', response.data)
-    // console.log(store.state.menus.menuList)
     // 动态绑定路由
     const newRoutes = router.options.routes
 
     response.data.forEach(menu => {
       if (menu.children) {
         menu.children.forEach(e => {
-          // 转成路由
           const route = menuToRoute(e)
-          debugger
-          // 吧路由添加到路由管理中
           if (route) {
             newRoutes[1].children.push(route)
           }
@@ -96,18 +89,14 @@ router.beforeEach((to, from, next) => {
  * @returns {*[]}
  */
 export const filterMenu = (userRouter, allRouter) => {
-  debugger
   const routers = []
   allRouter.forEach((allK, allV) => {
     userRouter.forEach((userK, userV) => {
-      debugger
       if (userK.name === allK.name) {
         if (userK.children && userK.children.length > 0) {
           filterMenu(allK, allV)
           console.log(userV)
-          debugger
         }
-        debugger
         routers.push(allK)
       }
     })

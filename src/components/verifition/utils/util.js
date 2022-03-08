@@ -111,6 +111,6 @@ export const codeColor2 = [
   '#FF33CC'
 ]
 
-console.log(codeChars)
-console.log(codeColor1)
-console.log(codeColor2)
+console.debug(codeChars)
+console.debug(codeColor1)
+console.debug(codeColor2)
