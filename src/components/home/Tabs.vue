@@ -3,14 +3,12 @@
     v-model="editableTabsValue"
     type="card"
     closable
-    @tab-remove="removeTab"
-  >
+    @tab-remove="removeTab">
     <el-tab-pane
       v-for="(item, index) in editableTabs"
       :key="index"
       :label="item.title"
-      :name="item.name"
-    >
+      :name="item.name">
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -28,21 +26,24 @@ export default {
       get () {
         return this.$store.state.editableTabsValue
       },
-      set (tab) {
-        this.$store.state.editableTabsValue = tab
+      set (editableTabsValue) {
+        this.$store.state.editableTabsValue = editableTabsValue
       }
     },
     editableTabs: {
       get () {
         return this.$store.state.editableTabs
       },
-      set (tab) {
-        this.$store.state.editableTabs = tab
+      set (editableTabs) {
+        this.$store.state.editableTabs = editableTabs
       }
     }
   },
   methods: {
     removeTab (targetName) {
+      if (targetName === 'Home') {
+        return
+      }
       const tabs = this.editableTabs
       let activeName = this.editableTabsValue
       if (activeName === targetName) {
@@ -55,6 +56,7 @@ export default {
           }
         })
       }
+      this.$router.push({ name: activeName })
       this.editableTabsValue = activeName
       this.editableTabs = tabs.filter((tab) => tab.name !== targetName)
     }

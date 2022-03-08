@@ -21,7 +21,7 @@
       @close="handleClose">
       <el-submenu
         background-color="#509EFF"
-        :index="item.menuName"
+        :index="item.name"
         v-for="item in menus"
         :key="item.id">
         <template slot="title">
@@ -29,7 +29,7 @@
           <span slot="title">{{ item.title }}</span>
         </template>
         <el-menu-item
-          :index="subItem.menuName"
+          :index="subItem.name"
           v-for="subItem in item.children"
           :key="subItem.id"
           @click="clickMenu(subItem)">
@@ -49,25 +49,25 @@ export default {
         {
           id: 1,
           title: '系统设置',
-          menuName: 'System',
+          name: 'System',
           path: '/system',
           children: [
             {
               id: 1.1,
               title: '用户管理',
-              menuName: 'User',
+              name: 'User',
               path: '/user'
             },
             {
               id: 1.2,
               title: '平台管理',
-              menuName: 'Platform',
+              name: 'Platform',
               path: '/platform'
             },
             {
               id: 1.3,
               title: '菜单管理',
-              menuName: 'Menu',
+              name: 'Menu',
               path: '/menu'
             }
           ]

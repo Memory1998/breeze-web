@@ -24,20 +24,31 @@ export default new Vuex.Store({
       state.isCollapse = isCollapse
     },
     addTab (state, menu) {
+      debugger
       const result =
         state.editableTabs.filter((item) => {
-          return item.name === menu.menuName
+          return item.name === menu.name
         }).length > 0
 
-      state.editableTabsValue = menu.menuName
+      state.editableTabsValue = menu.name
       if (result) {
         return
       }
 
       state.editableTabs.push({
-        title: menu.title,
-        name: menu.menuName
+        title: menu.meta.title,
+        name: menu.name
       })
+    },
+    clearTab (state) {
+      state.editableTabsValue = 'Home'
+      state.editableTabs = [
+        {
+          title: '首页',
+          name: 'Home'
+        }
+      ]
+      state.editableTabs = []
     }
   },
   actions: {},
