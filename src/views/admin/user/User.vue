@@ -5,6 +5,10 @@
 <script>
 export default {
   name: 'User',
-  components: {}
+  components: {},
+  data: () => ({
+  })
 }
 </script>
+<style>
+</style>

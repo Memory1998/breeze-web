@@ -195,12 +195,12 @@ export default {
             token: this.backToken
           }
           reqCheck(data).then((res) => {
-            if (res.repCode == '0000') {
+            if (res.repCode === '0000') {
               this.barAreaColor = '#4cae4c'
               this.barAreaBorderColor = '#5cb85c'
               this.text = '验证成功'
               this.bindingClick = false
-              if (this.mode == 'pop') {
+              if (this.mode === 'pop') {
                 setTimeout(() => {
                   this.$parent.clickShow = false
                   this.refresh()

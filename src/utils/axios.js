@@ -1,9 +1,12 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message, Loading } from 'element-ui'
+
+let loadingInstance = {}
 
 // 创建的实例返回一个对象,实例对象
 const request = axios.create({
-  // 请求路径，基础接口路径 请求9999时经过/dev-api相当于请求//http://localhost:8888
+  // 请求路径，基础接口路径 请求9999时经过/dev-api相当于请求
+  // http://localhost:8888
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000 // 请求超时时间
 })
@@ -20,6 +23,13 @@ request.interceptors.request.use(
       config.headers.Authorization =
         'Bearer ' + localStorage.getItem('access_token')
     }
+    debugger
+    loadingInstance = Loading.service({
+      lock: true,
+      text: 'Loading',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    })
     return config
   },
   (error) => {
@@ -45,14 +55,14 @@ request.interceptors.response.use(
         return
       }
       if (success.data.message) {
-        Message.success({ message: success.data.message })
+        loadingInstance.close()
       }
     }
     return success.data
   },
   (error) => {
     if (error.response.status === 504 || error.response.status === 404) {
-      Message.error({ message: '服务器被吃了~~~' })
+      Message.error({ message: '服务' })
     } else if (error.response.status === 403) {
       Message.error({ message: '权限不足' })
     } else if (error.response.status === 401) {

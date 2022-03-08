@@ -271,7 +271,7 @@ export default {
         x - this.barArea.getBoundingClientRect().left
       )
       this.startMoveTime = +new Date() // 开始滑动的时间
-      if (this.isEnd == false) {
+      if (this.isEnd === false) {
         this.text = ''
         this.moveBlockBackgroundColor = '#337ab7'
         this.leftBarBorderColor = '#337AB7'
@@ -284,7 +284,7 @@ export default {
     move: function (e) {
       let x
       e = e || window.event
-      if (this.status && this.isEnd == false) {
+      if (this.status && this.isEnd === false) {
         if (!e.touches) {
           // 兼容PC端
           x = e.clientX
@@ -292,25 +292,25 @@ export default {
           // 兼容移动端
           x = e.touches[0].pageX
         }
-        const bar_area_left = this.barArea.getBoundingClientRect().left
-        let move_block_left = x - bar_area_left // 小方块相对于父元素的left值
+        const barAreaLeft = this.barArea.getBoundingClientRect().left
+        let moveBlockLeft = x - barAreaLeft // 小方块相对于父元素的left值
         if (
-          move_block_left >=
+          moveBlockLeft >=
           this.barArea.offsetWidth -
             parseInt(parseInt(this.blockSize.width) / 2) -
             2
         ) {
-          move_block_left =
+          moveBlockLeft =
             this.barArea.offsetWidth -
             parseInt(parseInt(this.blockSize.width) / 2) -
             2
         }
-        if (move_block_left <= 0) {
-          move_block_left = parseInt(parseInt(this.blockSize.width) / 2)
+        if (moveBlockLeft <= 0) {
+          moveBlockLeft = parseInt(parseInt(this.blockSize.width) / 2)
         }
         // 拖动后小方块的left值
-        this.moveBlockLeft = move_block_left - this.startLeft + 'px'
-        this.leftBarWidth = move_block_left - this.startLeft + 'px'
+        this.moveBlockLeft = moveBlockLeft - this.startLeft + 'px'
+        this.leftBarWidth = moveBlockLeft - this.startLeft + 'px'
       }
     },
 
@@ -319,7 +319,7 @@ export default {
       this.endMovetime = +new Date()
       const _this = this
       // 判断是否重合
-      if (this.status && this.isEnd == false) {
+      if (this.status && this.isEnd === false) {
         let moveLeftDistance = parseInt(
           (this.moveBlockLeft || '').replace('px', '')
         )

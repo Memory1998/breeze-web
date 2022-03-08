@@ -68,10 +68,11 @@ export default {
   },
   methods: {
     success (params) {
-      console.log(params)
       token(this.userLogin).then((response) => {
-        localStorage.setItem('access_token', response.access_token)
-        this.$router.push('home')
+        if (response) {
+          localStorage.setItem('access_token', response.access_token)
+          this.$router.push('home')
+        }
       })
     },
     onSubmit () {
