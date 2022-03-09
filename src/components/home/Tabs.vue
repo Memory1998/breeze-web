@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     removeTab (targetName) {
-      if (targetName === 'Home') {
+      if (targetName === 'Welcome') {
         return
       }
       const tabs = this.editableTabs

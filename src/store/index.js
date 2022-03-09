@@ -5,47 +5,49 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    editableTabsValue: 'Home',
+    editableTabsValue: 'Welcome',
     editableTabs: [
       {
-        title: '首页',
-        name: 'Home'
+        title: '欢迎',
+        name: 'Welcome'
       }
     ],
-    menuList: [],
+    menus: [],
+    breads: [],
     isCollapse: false
   },
   getters: {},
   mutations: {
-    setMenuList (state, menus) {
-      state.menuList = menus
+    setMenus (state, menus) {
+      state.menus = menus
     },
     setCollapse (state, isCollapse) {
       state.isCollapse = isCollapse
     },
     addTab (state, menu) {
-      debugger
+      if (menu.name === 'Welcome') {
+        menu.title = '欢迎'
+      }
+      state.editableTabsValue = menu.name
       const result =
         state.editableTabs.filter((item) => {
           return item.name === menu.name
         }).length > 0
-
-      state.editableTabsValue = menu.name
       if (result) {
         return
       }
 
       state.editableTabs.push({
-        title: menu.meta.title,
+        title: menu.title,
         name: menu.name
       })
     },
     clearTab (state) {
-      state.editableTabsValue = 'Home'
+      state.editableTabsValue = 'Welcome'
       state.editableTabs = [
         {
-          title: '首页',
-          name: 'Home'
+          title: '欢迎',
+          name: 'Welcome'
         }
       ]
       state.editableTabs = []

@@ -78,7 +78,7 @@ export default {
     width: 88px;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     font-size: 30px;
     cursor: pointer;

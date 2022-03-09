@@ -9,12 +9,12 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: () => import('@/views/Login')
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/home',
     name: 'Home',
-    component: () => import('@/views/Home'),
+    component: () => import('@/views/Home.vue'),
     children: [
       {
         path: '/welcome',
@@ -49,7 +49,7 @@ export const loadRoute = () => {
     if (!response.data) {
       return
     }
-    store.commit('setMenuList', response.data)
+    store.commit('setMenus', response.data)
     // 动态绑定路由
     const newRoutes = router.options.routes
 
@@ -123,7 +123,6 @@ const menuToRoute = (menu) => {
 }
 
 export const loadView = (view) => {
-  console.log(`@/views${view}.vue`)
   return (resolve) => require([`@/views${view}.vue`], resolve)
 }
 

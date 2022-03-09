@@ -19,13 +19,20 @@
       :collapse="isCollapse"
       @open="handleOpen"
       @close="handleClose">
+      <el-menu-item
+        background-color="#509EFF"
+        index="Welcome"
+        key="0">
+          <i class="el-icon-s-home"></i>
+          <span slot="title">欢迎</span>
+      </el-menu-item>
       <el-submenu
         background-color="#509EFF"
         :index="item.name"
         v-for="item in menus"
         :key="item.id">
         <template slot="title">
-          <i class="el-icon-menu"></i>
+          <i :class="item.icon"></i>
           <span slot="title">{{ item.title }}</span>
         </template>
         <el-menu-item
@@ -33,6 +40,7 @@
           v-for="subItem in item.children"
           :key="subItem.id"
           @click="clickMenu(subItem)">
+          <i :class="subItem.icon"></i>
           <span slot="title">{{ subItem.title }}</span>
         </el-menu-item>
       </el-submenu>
@@ -45,35 +53,6 @@ export default {
   name: 'Menu',
   data () {
     return {
-      menus: [
-        {
-          id: 1,
-          title: '系统设置',
-          name: 'System',
-          path: '/system',
-          children: [
-            {
-              id: 1.1,
-              title: '用户管理',
-              name: 'User',
-              path: '/user'
-            },
-            {
-              id: 1.2,
-              title: '平台管理',
-              name: 'Platform',
-              path: '/platform'
-            },
-            {
-              id: 1.3,
-              title: '菜单管理',
-              name: 'Menu',
-              path: '/menu'
-            }
-          ]
-        }
-      ]
-
     }
   },
   computed: {
@@ -84,16 +63,23 @@ export default {
       set (isCollapse) {
         this.$store.state.isCollapse = isCollapse
       }
+    },
+    menus: {
+      get () {
+        return this.$store.state.menus
+      },
+      set (menus) {
+        this.$store.state.menus = menus
+      }
     }
   },
   methods: {
     handleOpen (key, keyPath) {
-      console.log(key, keyPath)
     },
     handleClose (key, keyPath) {
-      console.log(key, keyPath)
     },
     clickMenu (menu) {
+      console.log(this.$store.state.menus)
       this.$store.commit('addTab', menu)
     }
   }
