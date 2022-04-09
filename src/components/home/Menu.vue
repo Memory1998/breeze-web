@@ -10,8 +10,8 @@
     </el-header>
     <el-menu
       router
-      style="border-right: 1px solid #003366"
-      background-color="#003366"
+      style="border-right: 1px solid #002a59"
+      background-color="#002a59"
       text-color="#CCCCCC"
       active-text-color="#999966"
       :collapse-transition="false"
@@ -93,7 +93,7 @@ export default {
 }
 
 .el-aside {
-  background: #003366;
+  background: #002a59;
   transition: width 0.01s;
   -webkit-transition: width 0.01s;
   -moz-transition: width 0.01s;
@@ -117,8 +117,9 @@ export default {
   span {
     width: 5vw;
     margin-left: 15px;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     transition: width 0.01s;
+    color: #ffffff;
     -webkit-transition: width 0.01s;
     -moz-transition: width 0.01s;
     -o-transition: width 0.01s;

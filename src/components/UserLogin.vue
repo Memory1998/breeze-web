@@ -4,9 +4,8 @@
       :rules="rules"
       :model="userLogin"
       ref="userLogin"
-      class="userLogin"
-    >
-      <h3>登录</h3>
+      class="userLogin">
+      <h3>登录中心</h3>
       <el-form-item prop="username">
         <el-input
           type="text"
@@ -97,17 +96,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .userLogin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-70%);
+  background: rgba(236, 236, 236, 0.5);
   border-radius: 15px;
   background-clip: padding-box;
-  margin: 30vh auto;
   padding: 2vh 2vw;
   width: 18vw;
   border: 1px #eaeaea solid;
-  box-shadow: 0 0 25px #9b9b9b;
+  box-shadow: 0 0 10px #9b9b9b;
 }
 
 .userLogin > h3 {
+  font-size: 1.5rem;
   text-align: center;
   margin-bottom: 20px;
+  padding: 10px 0;
 }
 </style>

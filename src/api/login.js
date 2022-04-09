@@ -12,7 +12,7 @@ export function token (data) {
   const paramsObj = { grant_type: 'password' }
 
   return request({
-    url: '/oauth/oauth/token',
+    url: '/auth/oauth/token',
     method: 'post',
     params: paramsObj,
     data: dataObj
